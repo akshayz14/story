@@ -8,4 +8,5 @@
     <string name="home">Home</string>
     <string name="story">Story</string>
     <string name="stories_list">Stories List</string>
+    <string name="read_story">Read this story</string>
 </resources>

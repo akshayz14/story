@@ -72,17 +72,6 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
         animateViews()
     }
 
-    private fun ScrollView.startAnimation() {
-        val distance = 500 // distance to scroll in pixels
-        val duration = 3000L // duration of animation in milliseconds
-
-        // Scroll animation
-        val animator = ObjectAnimator.ofInt(this, "scrollY", 0, distance)
-        animator.duration = duration
-        animator.interpolator = LinearInterpolator()
-        animator.start()
-    }
-
     private fun animateViews() {
         // Animate the ImageView
         val imageViewAnimator = ObjectAnimator.ofFloat(binding.ivStoryImage, "alpha", 0f, 1f)
