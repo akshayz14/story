@@ -44,6 +44,7 @@ class StoryAdapter(private val onItemClickListener: OnItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Story) {
             binding.tvStoryTitle.text = item.story_title
+            binding.tvStoryDescription.text = item.story_name
 
             binding.root.setOnClickListener {
                 onItemClickListener.onItemClick(
