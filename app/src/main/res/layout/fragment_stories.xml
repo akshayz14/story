@@ -66,6 +66,12 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/story_item" />
 
+                    <Button
+                        android:id="@+id/btnSpeak"
+                        android:layout_width="wrap_content"
+                        android:text="Speak"
+                        android:layout_height="wrap_content"/>
+
                 </androidx.cardview.widget.CardView>
 
 

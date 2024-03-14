@@ -3,6 +3,7 @@ package com.aksstore.storily.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +52,8 @@ class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
         storyAdapter = StoryAdapter(this)
         binding.rvStoriesList.layoutManager = LinearLayoutManager(context)
         binding.rvStoriesList.adapter = storyAdapter
+
+        setUpToolBar()
     }
 
     private fun loadJsonFromAssets(moduleName: String) {
@@ -69,6 +72,19 @@ class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
         Log.d("TAG", "init: " + moduleName)
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                activity?.onBackPressed()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
     override fun onItemClick(item: Story?) {
         val args = Bundle().apply {
             putSerializable("story", item)
@@ -81,10 +97,7 @@ class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
     }
 
     private fun setUpToolBar() {
-
         activity?.title = resources.getString(R.string.stories_list)
-
-
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(true)

@@ -3,29 +3,27 @@ package com.aksstore.storily
 import android.animation.ObjectAnimator
 import android.os.Build
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.ScrollView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.aksstore.storily.databinding.FragmentStoriesBinding
 import com.aksstore.storily.model.Story
+import java.util.Locale
 
-class ReadStoriesFragment : Fragment() {
+class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private lateinit var binding: FragmentStoriesBinding
     private var currentStory: Story? = null
+    private lateinit var textToSpeech: TextToSpeech
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +40,20 @@ class ReadStoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         populateStory()
+        setupTextToSpeech()
+    }
+
+    private fun setupTextToSpeech() {
+        textToSpeech = TextToSpeech(requireContext(), this)
+        binding.btnSpeak.setOnClickListener {
+            val text = currentStory?.story_description
+            if (text?.isNotEmpty() == true) {
+                speakOut(text)
+            } else {
+                Toast.makeText(requireContext(), "No text to read", Toast.LENGTH_SHORT).show()
+            }
+
+        }
     }
 
     private fun populateStory() {
@@ -85,6 +97,20 @@ class ReadStoriesFragment : Fragment() {
         textViewAnimator.start()
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                activity?.onBackPressed()
+                true
+            }
+
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
     private fun setUpToolBar() {
         if (!currentStory?.story_title.isNullOrEmpty()) {
             activity?.title = currentStory?.story_title
@@ -98,5 +124,26 @@ class ReadStoriesFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = textToSpeech.setLanguage(Locale.US)
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Toast.makeText(requireContext(), "Language not supported", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        } else {
+            Toast.makeText(requireContext(), "Initialization failed", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        textToSpeech.stop()
+        textToSpeech.shutdown()
+    }
+
+    private fun speakOut(text: String) {
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
 
 }
