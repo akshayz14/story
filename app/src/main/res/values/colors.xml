@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3714B4</color>
+    <color name="colorPrimary_10">#1A146EB4</color>
+    <color name="colorPrimaryDark">@color/blue_h</color>
+    <color name="colorAccent">@color/colorPrimary</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="blue_h">#115F9C</color>
+
+    <color name="button_bgd">#AFB2C6</color>
+
+
+
+</resources>

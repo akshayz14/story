@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+<!--    <style name="Theme.MyApp" parent="Theme.MaterialComponents.Light.DarkActionBar">-->
+
+<!--    &lt;!&ndash; Customize your light theme here. &ndash;&gt;-->
+<!--        &lt;!&ndash; <item name="colorPrimary">@color/my_light_primary</item> &ndash;&gt;-->
+<!--=-->
+<!--    </style>-->
+
+    <style name="Theme.Storily" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <item name="android:statusBarColor">@color/black</item>
+
+    </style>
+
+</resources>

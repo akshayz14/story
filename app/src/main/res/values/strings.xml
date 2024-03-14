@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Storily</string>
+    <string name="zeroToThreeYears">0-3 years</string>
+    <string name="threeToTen">3-10 years</string>
+    <string name="tenToFifteenYears">10-15 years</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+</resources>

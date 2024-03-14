@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/story_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.aksstore.storily.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_storiesListFragment"
+            app:destination="@id/storiesListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/storiesListFragment"
+        android:name="com.aksstore.storily.fragments.StoriesListFragment"
+        android:label="StoriesListFragment"
+        tools:layout="@layout/fragment_stories_list">
+        <action
+            android:id="@+id/action_storiesListFragment_to_storiesFragment"
+            app:destination="@id/ReadStoriesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ReadStoriesFragment"
+        android:name="com.aksstore.storily.ReadStoriesFragment"
+        android:label="fragment_stories"
+        tools:layout="@layout/fragment_stories" />
+
+
+</navigation>
