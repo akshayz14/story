@@ -30,7 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/StoryToolBar"
-                app:title="Story"
                 app:titleTextAppearance="@style/Toolbar_titleText">
 
 

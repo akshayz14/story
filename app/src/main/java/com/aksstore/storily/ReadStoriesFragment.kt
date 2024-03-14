@@ -1,20 +1,23 @@
 package com.aksstore.storily
 
 import android.animation.ObjectAnimator
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.ScrollView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.aksstore.storily.databinding.FragmentStoriesBinding
+import com.aksstore.storily.model.Story
 
 class ReadStoriesFragment : Fragment() {
 
     private lateinit var binding: FragmentStoriesBinding
-    private lateinit var storyDescription: String
+    private var currentStory: Story? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,15 +45,19 @@ class ReadStoriesFragment : Fragment() {
     }
 
     private fun populateStory() {
-        if (storyDescription.isNotEmpty()) {
-            binding.tvStory.text = storyDescription
+        if (currentStory != null) {
+            binding.tvStory.text = currentStory?.story_description
         }
     }
 
     private fun init() {
-        storyDescription = arguments?.getString("storyDescription", "") ?: ""
+        currentStory = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getSerializable("story", Story::class.java)
+        } else {
+            arguments?.getSerializable("story") as? Story
+        }
+        setUpToolBar()
         animateViews()
-
     }
 
     private fun ScrollView.startAnimation() {
@@ -77,5 +84,19 @@ class ReadStoriesFragment : Fragment() {
         textViewAnimator.interpolator = AccelerateDecelerateInterpolator()
         textViewAnimator.start()
     }
+
+    private fun setUpToolBar() {
+        if (!currentStory?.story_title.isNullOrEmpty()) {
+            activity?.title = currentStory?.story_title
+        } else {
+            activity?.title = resources.getString(R.string.story)
+        }
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
 
 }

@@ -70,7 +70,7 @@ class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
 
     override fun onItemClick(item: Story?) {
         val args = Bundle().apply {
-            putString("storyDescription", item?.story_description)
+            putSerializable("story", item)
         }
         findNavController().navigate(
             R.id.action_storiesListFragment_to_storiesFragment,
