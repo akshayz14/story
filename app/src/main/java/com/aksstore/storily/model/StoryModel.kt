@@ -9,6 +9,7 @@ data class StoryModel(
 
 data class Story(
     var story_description: String,
+    var story_image: String,
     var story_name: String,
     var story_title: String
 ) : Serializable

@@ -9,13 +9,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.LinearInterpolator
-import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.aksstore.storily.databinding.FragmentStoriesBinding
 import com.aksstore.storily.model.Story
+import com.aksstore.storily.utils.loadImage
 import java.util.Locale
 
 class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
@@ -59,6 +58,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     private fun populateStory() {
         if (currentStory != null) {
             binding.tvStory.text = currentStory?.story_description
+            binding.ivStoryImage.loadImage(currentStory?.story_image)
         }
     }
 

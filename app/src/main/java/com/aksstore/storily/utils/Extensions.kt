@@ -3,10 +3,14 @@ package com.aksstore.storily.utils
 import android.content.res.AssetManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 fun NavController.navigateSafe(@IdRes resId: Int, args: Bundle? = null) {
     val destinationId = currentDestination?.getAction(resId)?.destinationId
@@ -49,3 +53,23 @@ fun NavController.navigateSafeWithOption(
 fun AssetManager.readAssetsFile(fileName: String): String =
     open(fileName).bufferedReader().use { it.readText() }
 
+
+fun ImageView.loadImage(
+    url: String?,
+    @DrawableRes placeholder: Int? = null,
+    @DrawableRes errorDrawable: Int? = null
+) {
+    Glide.with(this)
+        .load(url)
+        .also { glide ->
+            val requestOptions = RequestOptions()
+            placeholder?.also { drawable ->
+                requestOptions.placeholder(drawable)
+            }
+            errorDrawable?.let { errorDrawable ->
+                requestOptions.error(errorDrawable)
+            }
+            glide.apply(requestOptions)
+
+        }.into(this)
+}
