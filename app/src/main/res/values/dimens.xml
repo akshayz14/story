@@ -82,6 +82,8 @@
     <dimen name="dp150">150dp</dimen>
     <dimen name="dp175">175dp</dimen>
     <dimen name="dp200">200dp</dimen>
+    <dimen name="dp250">250dp</dimen>
+
 
     <dimen name="sp5">5sp</dimen>
     <dimen name="sp6">5sp</dimen>

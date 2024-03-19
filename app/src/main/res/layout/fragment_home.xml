@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,66 +12,46 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_height="wrap_content"
-            android:background="@color/button_bgd"
             android:layout_alignParentTop="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:background="@color/button_bgd"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/StoryToolBar"
-                app:titleTextAppearance="@style/Toolbar_titleText"
-                app:title="@string/home">
+                app:title="@string/home"
+                app:titleTextAppearance="@style/Toolbar_titleText">
 
             </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
-        <LinearLayout
-            android:id="@+id/llParentLayout"
+        <ScrollView
+            android:id="@+id/glItemGrids"
             android:layout_width="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar">
 
-            <Button
-                android:id="@+id/btnZeroToThree"
-                android:layout_width="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                android:padding="20dp"
-                style="@style/button_primary_blue_filled"
-                android:text="@string/zeroToThreeYears"
-                android:layout_height="wrap_content" />
 
-            <Button
-                android:id="@+id/btnThreeToTen"
-                android:layout_width="match_parent"
-                android:layout_margin="20dp"
-                android:padding="20dp"
-                style="@style/button_primary_blue_filled"
-                android:text="@string/threeToTen"
-                android:layout_height="wrap_content" />
+                <GridLayout
+                    android:id="@+id/gridLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:padding="8dp"
+                    android:rowCount="2"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <Button
-                android:id="@+id/btnTenToFifteen"
-                android:layout_width="match_parent"
-                android:layout_margin="20dp"
-                android:padding="20dp"
-                style="@style/button_primary_blue_filled"
-                android:text="@string/tenToFifteenYears"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+        </ScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

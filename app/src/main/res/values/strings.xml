@@ -2,11 +2,20 @@
     <string name="app_name">Storily</string>
     <string name="zeroToThreeYears">0-3 years</string>
     <string name="threeToTen">3-10 years</string>
-    <string name="tenToFifteenYears">10-15 years</string>
+    <string name="tenToFifteenYears">10+ years</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="story">Story</string>
     <string name="stories_list">Stories List</string>
     <string name="read_story">Read this story</string>
+    <string name="stories_for_0_to_3_years_text">Simple stories for kids between 0 to 3 years.</string>
+    <string name="stories_for_3_to_10_years">Stories for 3 to 10 year olds. These are easy to understand for kids in this age group.</string>
+    <string name="stories_for_all_ages">These stories can be read by all who are above 10 years of age.</string>
+    <string name="indian_mythology">Indian mythological stories</string>
+    <string name="indian_mythology_story_description">Stories about Indian mythology for all.</string>
+    <string name="inspirational_stories">Inspirational stories</string>
+    <string name="inspirational_stories_description">Stories that inspire you.</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="miscellaneous_description">Collection of various stories</string>
 </resources>

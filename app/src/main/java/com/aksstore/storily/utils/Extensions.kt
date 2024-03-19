@@ -1,6 +1,7 @@
 package com.aksstore.storily.utils
 
 import android.content.res.AssetManager
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -72,4 +73,8 @@ fun ImageView.loadImage(
             glide.apply(requestOptions)
 
         }.into(this)
+}
+ fun Int.dpToPx(resources: Resources): Int {
+    val scale = resources.displayMetrics.density
+    return (this * scale + 0.5f).toInt()
 }
