@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aksstore.storily.databinding.FragmentHomeBinding
+import com.aksstore.storily.utils.AppConstants
 import com.aksstore.storily.utils.dpToPx
 
 class HomeFragment : Fragment() {
@@ -31,7 +32,7 @@ class HomeFragment : Fragment() {
 
     private fun initView() {
 
-        for (i in 0 until 6) {
+        for (i in 0 until 17) {
             val cardView = layoutInflater.inflate(R.layout.card_item_layout, null) as CardView
             val ivStoriesType = cardView.findViewById<ImageView>(R.id.ivStoriesType)
 
@@ -73,34 +74,16 @@ class HomeFragment : Fragment() {
     private fun identifyAndSetCardDetails(i: Int, cardView: CardView) {
 
         when (i) {
-            0 -> {
+            AppConstants.KIDS_STORIES -> {
                 setupUIForCardView(
                     R.drawable.zero_to_three_home,
-                    resources.getString(R.string.zeroToThreeYears),
-                    resources.getString(R.string.stories_for_0_to_3_years_text),
+                    resources.getString(R.string.kids_stories),
+                    resources.getString(R.string.stories_for_kids_description),
                     cardView
                 )
             }
 
-            1 -> {
-                setupUIForCardView(
-                    R.drawable.three_to_ten_home,
-                    resources.getString(R.string.threeToTen),
-                    resources.getString(R.string.stories_for_3_to_10_years),
-                    cardView
-                )
-            }
-
-            2 -> {
-                setupUIForCardView(
-                    R.drawable.ten_plus_home,
-                    resources.getString(R.string.tenToFifteenYears),
-                    resources.getString(R.string.stories_for_all_ages),
-                    cardView
-                )
-            }
-
-            3 -> {
+            AppConstants.MYTHOLOGICAL_STORIES -> {
                 setupUIForCardView(
                     R.drawable.indian_mythology_home,
                     resources.getString(R.string.indian_mythology),
@@ -109,7 +92,7 @@ class HomeFragment : Fragment() {
                 )
             }
 
-            4 -> {
+            AppConstants.INSPIRATIONAL_STORIES -> {
                 setupUIForCardView(
                     R.drawable.inspirational_home,
                     resources.getString(R.string.inspirational_stories),
@@ -118,7 +101,121 @@ class HomeFragment : Fragment() {
                 )
             }
 
-            5 -> {
+            AppConstants.MOTIVATIONAL_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.motivational_home,
+                    resources.getString(R.string.motivational_stories),
+                    resources.getString(R.string.motivational_stories_description),
+                    cardView
+                )
+            }
+
+            AppConstants.SCIENCE_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.science_home,
+                    resources.getString(R.string.science_stories),
+                    resources.getString(R.string.science_stories_description),
+                    cardView
+                )
+            }
+
+            AppConstants.PLANETS_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.planets_home,
+                    resources.getString(R.string.planet_stories),
+                    resources.getString(R.string.planet_stories_description),
+                    cardView
+                )
+            }
+
+            AppConstants.ADVENTURE_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.adventure_home,
+                    resources.getString(R.string.adventure_stories),
+                    resources.getString(R.string.adventure_stories_description),
+                    cardView
+                )
+            }
+
+            AppConstants.PRINCESS_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.princess_home,
+                    resources.getString(R.string.princess_stories),
+                    resources.getString(R.string.princess_stories_description),
+                    cardView
+                )
+            }
+
+
+            AppConstants.GRANDMA_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.grandma2,
+                    resources.getString(R.string.grandma_stories),
+                    resources.getString(R.string.grandma_stories_description),
+                    cardView
+                )
+            }
+
+            AppConstants.FOLKTALE_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.folktales_home,
+                    resources.getString(R.string.folktale_stories),
+                    resources.getString(R.string.folktale_stories_description),
+                    cardView
+                )
+            }
+
+            AppConstants.JOKES_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.jokes_home,
+                    resources.getString(R.string.jokes_stories),
+                    resources.getString(R.string.jokes_stories_description),
+                    cardView
+                )
+            }
+
+            AppConstants.POEMS -> {
+                setupUIForCardView(
+                    R.drawable.poem_home,
+                    resources.getString(R.string.poem_stories),
+                    resources.getString(R.string.poems_stories_description),
+                    cardView
+                )
+            }
+            AppConstants.FRIENDSHIP_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.ten_home,
+                    resources.getString(R.string.friendship_stories),
+                    resources.getString(R.string.friendship_stories_description),
+                    cardView
+                )
+            }
+            AppConstants.TENALI_RAM_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.tenali_rama_home,
+                    resources.getString(R.string.tr_stories),
+                    resources.getString(R.string.tenaliram_stories_description),
+                    cardView
+                )
+            }
+            AppConstants.ARABIAN_NIGHTS_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.arabian_nights_home,
+                    resources.getString(R.string.arabian_night_stories),
+                    resources.getString(R.string.arabian_night_stories_description),
+                    cardView
+                )
+            }
+            AppConstants.CHILDHOOD_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.three_to_ten_home,
+                    resources.getString(R.string.childhood_stories),
+                    resources.getString(R.string.childhood_stories_description),
+                    cardView
+                )
+            }
+
+            AppConstants.MISCELLANEOUS_STORIES -> {
                 setupUIForCardView(
                     R.drawable.miscellaneous_home,
                     resources.getString(R.string.miscellaneous),
@@ -154,27 +251,85 @@ class HomeFragment : Fragment() {
     private fun callClickListener(i: Int) {
 
         when (i) {
-            0 -> {
-                navigateToListPage("ZERO_TO_THREE")
+            AppConstants.KIDS_STORIES -> {
+                navigateToListPage("KIDS")
             }
 
-            1 -> {
-                navigateToListPage("THREE_TO_TEN")
-            }
 
-            2 -> {
-                navigateToListPage("TEN_PLUS")
-            }
-
-            3 -> {
+            AppConstants.MYTHOLOGICAL_STORIES -> {
                 navigateToListPage("MYTHOLOGY")
             }
 
-            4 -> {
+            AppConstants.INSPIRATIONAL_STORIES -> {
                 navigateToListPage("INSPIRATIONAL")
             }
 
-            5 -> {
+
+            AppConstants.MOTIVATIONAL_STORIES -> {
+                navigateToListPage("MOTIVATIONAL")
+            }
+
+
+            AppConstants.SCIENCE_STORIES -> {
+                navigateToListPage("SCIENCE")
+            }
+
+
+            AppConstants.PLANETS_STORIES -> {
+                navigateToListPage("PLANETS")
+            }
+
+
+            AppConstants.ADVENTURE_STORIES -> {
+                navigateToListPage("ADVENTURE")
+            }
+
+
+            AppConstants.PRINCESS_STORIES -> {
+                navigateToListPage("PRINCESS")
+            }
+
+
+            AppConstants.GRANDMA_STORIES -> {
+                navigateToListPage("GRANDMA")
+            }
+
+
+            AppConstants.FOLKTALE_STORIES -> {
+                navigateToListPage("FOLKTALE")
+            }
+
+
+            AppConstants.JOKES_STORIES -> {
+                navigateToListPage("JOKES")
+            }
+
+
+            AppConstants.POEMS -> {
+                navigateToListPage("POEMS")
+            }
+
+
+            AppConstants.FRIENDSHIP_STORIES -> {
+                navigateToListPage("FRIENDSHIP")
+            }
+
+
+            AppConstants.TENALI_RAM_STORIES -> {
+                navigateToListPage("TENALI_RAM")
+            }
+
+
+            AppConstants.ARABIAN_NIGHTS_STORIES -> {
+                navigateToListPage("ARABIAN_NIGHTS")
+            }
+
+
+            AppConstants.CHILDHOOD_STORIES -> {
+                navigateToListPage("CHILDHOOD")
+            }
+
+            AppConstants.MISCELLANEOUS_STORIES -> {
                 navigateToListPage("MISCELLANEOUS")
             }
         }
