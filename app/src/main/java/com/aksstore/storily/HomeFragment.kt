@@ -324,7 +324,6 @@ class HomeFragment : Fragment() {
                 navigateToListPage("ARABIAN_NIGHTS")
             }
 
-
             AppConstants.CHILDHOOD_STORIES -> {
                 navigateToListPage("CHILDHOOD")
             }

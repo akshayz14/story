@@ -1,13 +1,12 @@
 package com.aksstore.storily
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.aksstore.storily.databinding.ActivityMainBinding
-import com.aksstore.storily.utils.navigateSafeWithOption
+
 
 class MainActivity : AppCompatActivity() {
 
