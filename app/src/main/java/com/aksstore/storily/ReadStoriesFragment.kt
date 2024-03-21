@@ -102,15 +102,15 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private fun setUpToolBar() {
         if (!currentStory?.story_title.isNullOrEmpty()) {
-            activity?.actionBar?.title = currentStory?.story_title
+            requireActivity().title = currentStory?.story_title
         } else {
-            activity?.actionBar?.title= resources.getString(R.string.story)
+            requireActivity().title= resources.getString(R.string.story)
         }
 //
 ////        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
 //        setHasOptionsMenu(true)
 //        (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(true)
-//        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onInit(status: Int) {

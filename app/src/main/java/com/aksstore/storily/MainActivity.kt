@@ -1,6 +1,5 @@
 package com.aksstore.storily
 
-import android.content.res.Resources.Theme
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.aksstore.storily.databinding.ActivityMainBinding
+import com.aksstore.storily.model.Story
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,17 +29,18 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_home,
-            R.id.nav_share,
-            R.id.nav_contact_us,
-            R.id.nav_about
-            // Add more destination IDs as needed
-        ), binding.drawerLayout)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_home,
+                R.id.nav_share,
+                R.id.nav_contact_us,
+                R.id.nav_about
+                // Add more destination IDs as needed
+            ), binding.drawerLayout
+        )
 
         init()
     }
-
 
 
     fun init() {
@@ -57,13 +58,19 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         toolbar?.setNavigationIcon(R.drawable.ic_drawer_icon)
 
-        supportActionBar?.setHomeAsUpIndicator(resources.getDrawable(R.drawable.ic_drawer_icon, null))
+        supportActionBar?.setHomeAsUpIndicator(
+            resources.getDrawable(
+                R.drawable.ic_drawer_icon,
+                null
+            )
+        )
 
         if (toolbar != null) {
             toolbar?.setNavigationOnClickListener {
                 if (supportActionBar?.title == "Home") {
                     findViewById<DrawerLayout>(R.id.drawer_layout).openDrawer(
-                        GravityCompat.START)
+                        GravityCompat.START
+                    )
                 } else {
                     navController.navigateUp()
                 }
@@ -79,11 +86,12 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
+
     override fun onResume() {
         super.onResume()
         try {
 
-            navController.addOnDestinationChangedListener { _, destination, _ ->
+            navController.addOnDestinationChangedListener { _, destination, bundle ->
 
                 when (destination.id) {
 
@@ -104,8 +112,16 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     R.id.readStoriesFragment -> {
+                        var currentStory: Story? = null
+                        bundle?.let {
+                            currentStory = it.getSerializable("story") as Story
+                        }
                         supportActionBar?.apply {
-                            this.title = "Read story"
+                            if (currentStory != null) {
+                                this.title = currentStory?.story_title
+                            } else {
+                                this.title = "Read story"
+                            }
                             setDisplayHomeAsUpEnabled(true)
                             setHomeAsUpIndicator(R.drawable.ic_back_arrow_white)
                         }

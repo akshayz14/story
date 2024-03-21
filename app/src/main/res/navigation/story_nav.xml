@@ -24,6 +24,9 @@
         android:name="com.aksstore.storily.fragments.StoriesListFragment"
         android:label="StoriesListFragment"
         tools:layout="@layout/fragment_stories_list">
+        <argument
+            android:name="story"
+            app:argType="string" />
         <action
             android:id="@+id/action_storiesListFragment_to_storiesFragment"
             app:destination="@id/readStoriesFragment"
