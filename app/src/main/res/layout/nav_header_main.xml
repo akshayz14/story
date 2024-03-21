@@ -16,6 +16,7 @@
         android:textSize="@dimen/sp20"
         android:fontFamily="@font/font_family_galano_regular"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

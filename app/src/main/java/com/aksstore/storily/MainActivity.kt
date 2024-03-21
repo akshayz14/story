@@ -13,7 +13,6 @@ import androidx.navigation.ui.NavigationUI
 import com.aksstore.storily.databinding.ActivityMainBinding
 import com.aksstore.storily.model.Story
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_share,
                 R.id.nav_contact_us,
                 R.id.nav_about
-                // Add more destination IDs as needed
             ), binding.drawerLayout
         )
 
@@ -56,14 +54,7 @@ class MainActivity : AppCompatActivity() {
 
 
         toolbar = findViewById(R.id.toolbar)
-        toolbar?.setNavigationIcon(R.drawable.ic_drawer_icon)
-
-        supportActionBar?.setHomeAsUpIndicator(
-            resources.getDrawable(
-                R.drawable.ic_drawer_icon,
-                null
-            )
-        )
+        toolbar?.setNavigationIcon(R.drawable.ic_drawer_ham_2)
 
         if (toolbar != null) {
             toolbar?.setNavigationOnClickListener {
@@ -76,16 +67,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-
         }
-
     }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
-
 
     override fun onResume() {
         super.onResume()
@@ -99,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                         supportActionBar?.apply {
                             this.title = "Home"
                             setDisplayHomeAsUpEnabled(true)
-                            setHomeAsUpIndicator(R.drawable.ic_drawer_icon)
+                            setHomeAsUpIndicator(R.drawable.ic_drawer_ham_2)
                         }
                     }
 
