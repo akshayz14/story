@@ -11,6 +11,15 @@
         <item name="titleCentered">true</item>
     </style>
 
+    <style name="HomeToolBar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="android:homeAsUpIndicator">@drawable/ic_drawer_icon</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="subtitleTextColor">@color/white</item>
+        <item name="android:editTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="titleCentered">true</item>
+    </style>
+
     <style name="Toolbar_titleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white</item>

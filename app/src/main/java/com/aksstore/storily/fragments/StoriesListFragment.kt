@@ -53,7 +53,7 @@ class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
         binding.rvStoriesList.layoutManager = LinearLayoutManager(context)
         binding.rvStoriesList.adapter = storyAdapter
 
-        setUpToolBar()
+//        setUpToolBar()
     }
 
     private fun loadJsonFromAssets(moduleName: String) {
@@ -98,7 +98,7 @@ class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
 
     private fun setUpToolBar() {
         activity?.title = resources.getString(R.string.stories_list)
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+//        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)

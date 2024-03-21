@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aksstore.storily.databinding.FragmentHomeBinding
@@ -65,6 +67,7 @@ class HomeFragment : Fragment() {
             cardView.setOnClickListener {
                 callClickListener(i)
             }
+
 
             binding.gridLayout.addView(cardView)
         }

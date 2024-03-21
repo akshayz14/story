@@ -26,7 +26,7 @@
         tools:layout="@layout/fragment_stories_list">
         <action
             android:id="@+id/action_storiesListFragment_to_storiesFragment"
-            app:destination="@id/ReadStoriesFragment"
+            app:destination="@id/readStoriesFragment"
             app:enterAnim="@anim/fragment_enter"
             app:exitAnim="@anim/fragment_exit"
             app:popEnterAnim="@anim/fragment_enter"
@@ -34,9 +34,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/ReadStoriesFragment"
+        android:id="@+id/readStoriesFragment"
         android:name="com.aksstore.storily.ReadStoriesFragment"
-        android:label="fragment_stories"
+        android:label="ReadStoriesFragment"
         tools:layout="@layout/fragment_stories" />
 
 
