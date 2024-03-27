@@ -12,7 +12,7 @@ object AppConstants {
     const val PLANETS_STORIES = 5
     const val ADVENTURE_STORIES = 6
     const val PRINCESS_STORIES = 7
-    const val GRANDMA_STORIES = 8
+    const val AKBAR_BIRBAL = 8
     const val FOLKTALE_STORIES = 9
     const val JOKES_STORIES = 10
     const val POEMS = 11
@@ -21,4 +21,6 @@ object AppConstants {
     const val ARABIAN_NIGHTS_STORIES = 14
     const val CHILDHOOD_STORIES = 15
     const val MISCELLANEOUS_STORIES = 16
+    const val GRANDMA_STORIES = 17
+
 }

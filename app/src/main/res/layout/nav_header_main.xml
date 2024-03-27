@@ -28,7 +28,7 @@
         android:layout_height="200dp"
         android:background="@color/purple_light"
         android:padding="@dimen/dp10"
-        android:src="@drawable/story_logo_4"
+        android:src="@drawable/ic_storily_logo_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/drawerToolBar" />

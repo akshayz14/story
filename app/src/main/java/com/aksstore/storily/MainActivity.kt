@@ -68,6 +68,44 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+
+        binding.navView.setNavigationItemSelectedListener {
+            it.isChecked = true
+            findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(
+                GravityCompat.START
+            )
+            if (it.itemId == R.id.nav_share) {
+                showAppShareDialog()
+            }
+
+            if (it.itemId == R.id.nav_contact_us) {
+                showContactUsDialog()
+            }
+            if (it.itemId == R.id.nav_about)  {
+                showAboutUsDialog()
+            }
+            true
+
+        }
+    }
+
+    private fun showAboutUsDialog() {
+
+
+
+    }
+
+    private fun showContactUsDialog() {
+
+
+    }
+
+    private fun showAppShareDialog() {
+
+
+
+
+
     }
 
     override fun onResume() {

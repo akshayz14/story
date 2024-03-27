@@ -1,6 +1,7 @@
 package com.aksstore.storily
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +15,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aksstore.storily.databinding.FragmentHomeBinding
+import com.aksstore.storily.model.CustomDialog
 import com.aksstore.storily.utils.AppConstants
 import com.aksstore.storily.utils.dpToPx
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CustomDialog.OnDialogButtonClickListener {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -34,7 +36,7 @@ class HomeFragment : Fragment() {
 
     private fun initView() {
 
-        for (i in 0 until 17) {
+        for (i in 0 until 15) {
             val cardView = layoutInflater.inflate(R.layout.card_item_layout, null) as CardView
             val ivStoriesType = cardView.findViewById<ImageView>(R.id.ivStoriesType)
 
@@ -150,11 +152,11 @@ class HomeFragment : Fragment() {
             }
 
 
-            AppConstants.GRANDMA_STORIES -> {
+            AppConstants.AKBAR_BIRBAL -> {
                 setupUIForCardView(
-                    R.drawable.grandma2,
-                    resources.getString(R.string.grandma_stories),
-                    resources.getString(R.string.grandma_stories_description),
+                    R.drawable.akbar_birbal,
+                    resources.getString(R.string.akbar_birbal),
+                    resources.getString(R.string.exciting_stories_from_akbar_birbal),
                     cardView
                 )
             }
@@ -226,6 +228,15 @@ class HomeFragment : Fragment() {
                     cardView
                 )
             }
+
+            AppConstants.GRANDMA_STORIES -> {
+                setupUIForCardView(
+                    R.drawable.grandma2,
+                    resources.getString(R.string.grandma_stories),
+                    resources.getString(R.string.grandma_stories_description),
+                    cardView
+                )
+            }
         }
 
     }
@@ -293,8 +304,8 @@ class HomeFragment : Fragment() {
             }
 
 
-            AppConstants.GRANDMA_STORIES -> {
-                navigateToListPage("GRANDMA")
+            AppConstants.AKBAR_BIRBAL -> {
+                navigateToListPage("AKBAR_BIRBAL")
             }
 
 
@@ -334,6 +345,9 @@ class HomeFragment : Fragment() {
             AppConstants.MISCELLANEOUS_STORIES -> {
                 navigateToListPage("MISCELLANEOUS")
             }
+            AppConstants.GRANDMA_STORIES -> {
+                navigateToListPage("GRANDMA")
+            }
         }
 
     }
@@ -347,5 +361,12 @@ class HomeFragment : Fragment() {
             R.id.action_homeFragment_to_storiesListFragment,
             args
         )
+    }
+
+    override fun onButtonClick(text: String) {
+
+        Log.d("TAG", "onButtonClick: ")
+
+
     }
 }
