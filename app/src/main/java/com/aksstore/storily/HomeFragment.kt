@@ -1,7 +1,6 @@
 package com.aksstore.storily
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.aksstore.storily.databinding.FragmentHomeBinding
-import com.aksstore.storily.model.CustomDialog
 import com.aksstore.storily.utils.AppConstants
 import com.aksstore.storily.utils.dpToPx
 
-class HomeFragment : Fragment(), CustomDialog.OnDialogButtonClickListener {
+class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -361,12 +357,5 @@ class HomeFragment : Fragment(), CustomDialog.OnDialogButtonClickListener {
             R.id.action_homeFragment_to_storiesListFragment,
             args
         )
-    }
-
-    override fun onButtonClick(text: String) {
-
-        Log.d("TAG", "onButtonClick: ")
-
-
     }
 }

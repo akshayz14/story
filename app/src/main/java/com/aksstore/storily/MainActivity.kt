@@ -1,7 +1,10 @@
 package com.aksstore.storily
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -18,9 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
-
     private var toolbar: androidx.appcompat.widget.Toolbar? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
-                R.id.nav_share,
                 R.id.nav_contact_us,
                 R.id.nav_about
             ), binding.drawerLayout
@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
 
         init()
     }
-
 
     fun init() {
         val navHostFragment =
@@ -70,42 +69,60 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.navView.setNavigationItemSelectedListener {
-            it.isChecked = true
             findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(
                 GravityCompat.START
             )
-            if (it.itemId == R.id.nav_share) {
-                showAppShareDialog()
-            }
+            //TODO : Add app share dialog code below
+//            if (it.itemId == R.id.nav_share) {
+//                showAppShareDialog()
+//            }
 
             if (it.itemId == R.id.nav_contact_us) {
                 showContactUsDialog()
             }
-            if (it.itemId == R.id.nav_about)  {
+            if (it.itemId == R.id.nav_about) {
                 showAboutUsDialog()
             }
-            true
-
+            false
         }
     }
 
     private fun showAboutUsDialog() {
+        val dialog = Dialog(this, R.style.Theme_Dialog)
+        dialog.setContentView(R.layout.custom_dialog)
 
+        val tvDialogTitle = dialog.findViewById<TextView>(R.id.tvDialogTitle)
+        val tvDialogDescription = dialog.findViewById<TextView>(R.id.tvDialogDescription)
 
+        tvDialogTitle.text = resources.getString(R.string.about_us)
+        tvDialogDescription.text = resources.getString(R.string.app_name)
 
+        val closeButton = dialog.findViewById<Button>(R.id.dialogButton)
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun showContactUsDialog() {
+        val dialog = Dialog(this, R.style.Theme_Dialog)
+        dialog.setContentView(R.layout.custom_dialog)
 
+        val tvDialogTitle = dialog.findViewById<TextView>(R.id.tvDialogTitle)
+        val tvDialogDescription = dialog.findViewById<TextView>(R.id.tvDialogDescription)
 
+        tvDialogTitle.text = resources.getString(R.string.contact_us)
+        tvDialogDescription.text = resources.getString(R.string.storily_email)
+
+        val closeButton = dialog.findViewById<Button>(R.id.dialogButton)
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun showAppShareDialog() {
-
-
-
-
-
+        //TODO : Add app share here in future
     }
 
     override fun onResume() {

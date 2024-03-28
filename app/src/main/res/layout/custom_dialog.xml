@@ -8,29 +8,51 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp10">
 
         <TextView
+            android:id="@+id/tvDialogTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dp10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp22"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/tvDialogTitle"
-            android:layout_width="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_height="wrap_content"
-            tools:text="Custom Dialog Title"
             app:titleTextAppearance="@style/Toolbar_titleText"
-            android:textSize="@dimen/sp22"
-            android:textStyle="bold" />
+            tools:text="Custom Dialog Title" />
+
+        <TextView
+            android:id="@+id/tvDialogDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/dp10"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDialogTitle"
+            tools:text="Custom Dialog Desc" />
 
 
         <Button
             android:id="@+id/dialogButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDialogTitle"
+            style="@style/button_primary_blue_filled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="OK" />
+            android:layout_marginTop="@dimen/dp10"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDialogDescription"
+            android:text="OK" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
