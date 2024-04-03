@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
 fun NavController.navigateSafe(@IdRes resId: Int, args: Bundle? = null) {
@@ -62,6 +63,7 @@ fun ImageView.loadImage(
 ) {
     Glide.with(this)
         .load(url)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .also { glide ->
             val requestOptions = RequestOptions()
             placeholder?.also { drawable ->

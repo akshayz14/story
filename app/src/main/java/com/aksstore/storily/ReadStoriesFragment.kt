@@ -58,7 +58,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     private fun populateStory() {
         if (currentStory != null) {
             binding.tvStory.text = currentStory?.story_description
-            binding.ivStoryImage.loadImage(currentStory?.story_image)
+            binding.ivStoryImage.loadImage(currentStory?.story_image, R.drawable.no_image_found_placeholder)
         }
     }
 

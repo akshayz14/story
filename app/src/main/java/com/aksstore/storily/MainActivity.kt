@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         val tvDialogDescription = dialog.findViewById<TextView>(R.id.tvDialogDescription)
 
         tvDialogTitle.text = resources.getString(R.string.about_us)
-        tvDialogDescription.text = resources.getString(R.string.app_name)
+        tvDialogDescription.text = resources.getString(R.string.about_us_description)
 
         val closeButton = dialog.findViewById<Button>(R.id.dialogButton)
         closeButton.setOnClickListener {

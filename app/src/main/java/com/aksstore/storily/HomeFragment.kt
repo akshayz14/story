@@ -1,9 +1,13 @@
 package com.aksstore.storily
 
+import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -18,7 +22,13 @@ import com.aksstore.storily.utils.dpToPx
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedPreferences = requireActivity().getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,9 +76,36 @@ class HomeFragment : Fragment() {
                 callClickListener(i)
             }
 
+            val dialogShown = sharedPreferences.getBoolean("dialogShown", false)
+            if (!dialogShown) {
+                showOneTimeDialog()
+                // Update SharedPreferences to indicate that the dialog has been shown
+                sharedPreferences.edit().putBoolean("dialogShown", true).apply()
+            }
+
 
             binding.gridLayout.addView(cardView)
         }
+
+    }
+
+    private fun showOneTimeDialog() {
+        val dialog = Dialog(requireContext(), R.style.Theme_Dialog)
+        dialog.setContentView(R.layout.custom_dialog)
+
+        val tvDialogTitle = dialog.findViewById<TextView>(R.id.tvDialogTitle)
+        val tvDialogDescription = dialog.findViewById<TextView>(R.id.tvDialogDescription)
+
+        tvDialogTitle.text = resources.getString(R.string.welcome)
+        tvDialogDescription.text = resources.getString(R.string.welcome_description)
+
+        val closeButton = dialog.findViewById<Button>(R.id.dialogButton)
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+
+
 
     }
 

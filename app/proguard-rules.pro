@@ -19,3 +19,40 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class android.support.** { *; }
+
+-keep interface android.support.** { *; }
+-keepattributes *Annotation*
+
+
+-keep class com.google.android.gms.** { *; }
+
+
+#glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+ <init>(...);
+}
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+  *** rewind();
+}
+
+# Keep GSON classes
+-keep class com.google.gson.** { *; }
+
+-keep class com.google.gson.reflect.TypeToken
+-keep class * extends com.google.gson.reflect.TypeToken
+-keep public class * implements java.lang.reflect.Type
+
+-keep public class com.aksstore.storily.model.Story
+-keep public class com.aksstore.storily.model.StoryModel
+
+-keep class com.aksstore.storily.model.** { *; }
+
+
+-keep public class com.aksstore.storily.adapter.StoryAdapter

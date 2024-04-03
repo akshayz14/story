@@ -11,7 +11,7 @@
     <string name="stories_for_0_to_3_years_text">Simple stories for kids between 0 to 3 years.</string>
     <string name="stories_for_3_to_10_years">Stories for 3 to 10 year olds. These are easy to understand for kids in this age group.</string>
     <string name="stories_for_all_ages">These stories can be read by all who are above 10 years of age.</string>
-    <string name="indian_mythology">Indian mythological stories</string>
+    <string name="indian_mythology">Mythological stories</string>
     <string name="indian_mythology_story_description">Stories about Indian mythology for all.</string>
     <string name="inspirational_stories">Inspirational stories</string>
     <string name="inspirational_stories_description">Stories that inspire you.</string>
@@ -49,6 +49,9 @@
     <string name="exciting_stories_from_akbar_birbal">Exciting stories about Akbar and birbal.</string>
     <string name="about_us">About Us</string>
     <string name="contact_us">Contact Us</string>
-    <string name="storily_email">If you face any issues contact us on :\n\"storily14@gmail.com\"</string>
+    <string name="storily_email">If you face any issues, you can reach us on :\n\"storily14@gmail.com\"</string>
     <string name="about">About</string>
+    <string name="about_us_description">Welcome to Storily\u2122, your ultimate place to read offline stories.\nKeep app updated for new stories and exciting features.\n</string>
+    <string name="welcome">Welcome to Storily</string>
+    <string name="welcome_description">Welcome to Storily, best place to read offline stories. Enjoy and share with others.</string>
 </resources>

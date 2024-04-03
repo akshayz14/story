@@ -7,11 +7,11 @@ object AppConstants {
     const val KIDS_STORIES = 0
     const val MYTHOLOGICAL_STORIES = 1
     const val INSPIRATIONAL_STORIES = 2
-    const val MOTIVATIONAL_STORIES = 3
+    const val PRINCESS_STORIES = 3
     const val SCIENCE_STORIES = 4
     const val PLANETS_STORIES = 5
     const val ADVENTURE_STORIES = 6
-    const val PRINCESS_STORIES = 7
+    const val MOTIVATIONAL_STORIES = 7
     const val AKBAR_BIRBAL = 8
     const val FOLKTALE_STORIES = 9
     const val JOKES_STORIES = 10
