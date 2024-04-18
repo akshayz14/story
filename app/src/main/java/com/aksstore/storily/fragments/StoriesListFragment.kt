@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aksstore.storily.R
@@ -16,9 +18,11 @@ import com.aksstore.storily.databinding.FragmentStoriesListBinding
 import com.aksstore.storily.model.Story
 import com.aksstore.storily.model.StoryModel
 import com.aksstore.storily.utils.readAssetsFile
+import com.aksstore.storily.viewmodel.StorilyViewModel
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
 
     private lateinit var binding: FragmentStoriesListBinding
@@ -27,6 +31,8 @@ class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
     private lateinit var storyAdapter: StoryAdapter
 
     private var storyList = mutableListOf<Story>()
+    private val viewModel: StorilyViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +50,7 @@ class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
         setupRecyclerView()
         init()
         if (!moduleName.isBlank()) {
-            loadJsonFromAssets(moduleName)
+            loadJsonFromViewModel(moduleName)
         }
     }
 
@@ -63,6 +69,13 @@ class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
         if (moduleJson.isNotEmpty()) {
             val module = Gson().fromJson(moduleJson, StoryModel::class.java)
             storyList = module.stories.toMutableList()
+            storyAdapter.setData(storyList)
+        }
+    }
+
+    private fun loadJsonFromViewModel(moduleName : String) {
+        viewModel.loadData(moduleName + ".json")?.apply {
+            storyList = this.stories.toMutableList()
             storyAdapter.setData(storyList)
         }
     }

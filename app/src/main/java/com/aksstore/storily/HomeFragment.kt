@@ -18,7 +18,9 @@ import androidx.navigation.fragment.findNavController
 import com.aksstore.storily.databinding.FragmentHomeBinding
 import com.aksstore.storily.utils.AppConstants
 import com.aksstore.storily.utils.dpToPx
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding

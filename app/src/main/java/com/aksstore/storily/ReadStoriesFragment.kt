@@ -15,8 +15,10 @@ import androidx.fragment.app.Fragment
 import com.aksstore.storily.databinding.FragmentStoriesBinding
 import com.aksstore.storily.model.Story
 import com.aksstore.storily.utils.loadImage
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
+@AndroidEntryPoint
 class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private lateinit var binding: FragmentStoriesBinding
