@@ -7,6 +7,7 @@ import com.aksstore.storily.R
 import com.aksstore.storily.databinding.StoryListItemBinding
 import com.aksstore.storily.model.Story
 import com.aksstore.storily.utils.loadImage
+import com.aksstore.storily.utils.loadImageWithThumb
 
 
 class StoryAdapter(private val onItemClickListener: OnItemClickListener) :
@@ -47,7 +48,7 @@ class StoryAdapter(private val onItemClickListener: OnItemClickListener) :
         fun bind(item: Story) {
             binding.tvStoryTitle.text = item.story_title
             binding.tvStoryDescription.text = item.story_name
-            binding.ivStoryImage.loadImage(item.story_image, R.drawable.no_image_found_placeholder)
+            binding.ivStoryImage.loadImageWithThumb(item.story_image, R.drawable.no_image_found_placeholder)
 
             binding.root.setOnClickListener {
                 onItemClickListener.onItemClick(

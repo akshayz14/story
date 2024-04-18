@@ -12,6 +12,7 @@ import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 
 fun NavController.navigateSafe(@IdRes resId: Int, args: Bundle? = null) {
@@ -63,6 +64,29 @@ fun ImageView.loadImage(
 ) {
     Glide.with(this)
         .load(url)
+        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+        .also { glide ->
+            val requestOptions = RequestOptions()
+            placeholder?.also { drawable ->
+                requestOptions.placeholder(drawable)
+            }
+            errorDrawable?.let { errorDrawable ->
+                requestOptions.error(errorDrawable)
+            }
+            glide.apply(requestOptions)
+
+        }.into(this)
+}
+
+fun ImageView.loadImageWithThumb(
+    url: String?,
+    @DrawableRes placeholder: Int? = null,
+    @DrawableRes errorDrawable: Int? = null
+) {
+    Glide.with(this)
+        .load(url)
+        .thumbnail(0.05f)
+        .transition(DrawableTransitionOptions.withCrossFade())
         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .also { glide ->
             val requestOptions = RequestOptions()
