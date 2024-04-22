@@ -54,4 +54,5 @@
     <string name="about_us_description">Welcome to Storily\u2122, your ultimate place to read offline stories.\nKeep app updated for new stories and exciting features.\n</string>
     <string name="welcome">Welcome to Storily</string>
     <string name="welcome_description">Welcome to Storily, best place to read offline stories. Enjoy and share with others.</string>
+    <string name="version">"Version : "</string>
 </resources>

@@ -87,6 +87,8 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+
+        binding.tvVersion.text = "Version : " + "v" + BuildConfig.VERSION_NAME
     }
 
     private fun showAboutUsDialog() {

@@ -44,6 +44,16 @@
             app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/drawer_menu" >
 
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp16"
+                android:layout_margin="@dimen/dp30"
+                android:text="@string/version"/>
+
         </com.google.android.material.navigation.NavigationView>
 
 
