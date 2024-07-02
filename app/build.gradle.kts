@@ -78,6 +78,12 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
+    implementation("com.google.android.play:feature-delivery:2.1.0")
+
+    // For Kotlin users, also import the Kotlin extensions library for Play Feature Delivery:
+    implementation("com.google.android.play:feature-delivery-ktx:2.1.0")
+
+
 }
 
 // Allow references to generated code

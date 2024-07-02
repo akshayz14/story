@@ -108,10 +108,6 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
         } else {
             requireActivity().title= resources.getString(R.string.story)
         }
-//
-////        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
-//        setHasOptionsMenu(true)
-//        (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
