@@ -1,6 +1,8 @@
 package com.aksstore.storily.utils
 
+import android.content.Context
 import android.content.res.AssetManager
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
@@ -103,4 +105,10 @@ fun ImageView.loadImageWithThumb(
  fun Int.dpToPx(resources: Resources): Int {
     val scale = resources.displayMetrics.density
     return (this * scale + 0.5f).toInt()
+}
+
+fun isNightMode(context: Context): Boolean {
+    val nightModeFlags =
+        context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+    return nightModeFlags == Configuration.UI_MODE_NIGHT_YES
 }

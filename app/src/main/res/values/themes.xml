@@ -7,8 +7,9 @@
 <!--=-->
 <!--    </style>-->
 
-    <style name="Theme.Storily" parent="Theme.MaterialComponents.Light.NoActionBar" >
+    <style name="Theme.Storily" parent="Theme.Material3.DayNight.NoActionBar" >
         <item name="android:statusBarColor">@color/black</item>
+        <item name="android:textColor">@color/black</item>
 
     </style>
 

@@ -14,9 +14,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.aksstore.storily.databinding.FragmentStoriesBinding
 import com.aksstore.storily.model.Story
+import com.aksstore.storily.utils.isNightMode
 import com.aksstore.storily.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+
 
 @AndroidEntryPoint
 class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
@@ -60,7 +62,10 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     private fun populateStory() {
         if (currentStory != null) {
             binding.tvStory.text = currentStory?.story_description
-            binding.ivStoryImage.loadImage(currentStory?.story_image, R.drawable.no_image_found_placeholder)
+            binding.ivStoryImage.loadImage(
+                currentStory?.story_image,
+                R.drawable.no_image_found_placeholder
+            )
         }
     }
 
@@ -72,7 +77,14 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
         }
         setUpToolBar()
         animateViews()
+
+        if (isNightMode(requireContext())) {
+            binding.tvStory.setTextColor(resources.getColor(R.color.white, null))
+        } else {
+            binding.tvStory.setTextColor(resources.getColor(R.color.black, null))
+        }
     }
+
 
     private fun animateViews() {
         // Animate the ImageView
@@ -106,7 +118,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
         if (!currentStory?.story_title.isNullOrEmpty()) {
             requireActivity().title = currentStory?.story_title
         } else {
-            requireActivity().title= resources.getString(R.string.story)
+            requireActivity().title = resources.getString(R.string.story)
         }
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

@@ -12,6 +12,36 @@
         android:layout_height="match_parent"
         tools:context=".ReadStoriesFragment">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvStoryImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp20"
+            android:layout_marginVertical="@dimen/dp5"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivStoryImage"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/story_item" />
+
+            <Button
+                android:id="@+id/btnSpeak"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:text="@string/read_story"
+                android:textAllCaps="false"
+                android:textSize="@dimen/sp10" />
+
+        </androidx.cardview.widget.CardView>
+
+
         <ScrollView
             android:id="@+id/svStory"
             android:layout_width="0dp"
@@ -21,46 +51,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/cvStoryImage">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="0dp">
-
-                    <ImageView
-                        android:id="@+id/ivStoryImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="400dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/story_item" />
-
-                    <Button
-                        android:id="@+id/btnSpeak"
-                        style="@style/Widget.AppCompat.Button.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|bottom"
-                        android:text="@string/read_story"
-                        android:textAllCaps="false"
-                        android:textSize="@dimen/sp10" />
-
-                </androidx.cardview.widget.CardView>
-
 
                 <TextView
                     android:id="@+id/tvStory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:breakStrategy="balanced"
                     android:fontFamily="@font/font_family_galano_regular"
-                    android:gravity="center_horizontal"
-                    android:textSize="28sp"
+                    android:gravity="fill"
+                    android:textSize="@dimen/sp25"
                     tools:text="bckjhwrbvkjrvb" />
 
 
