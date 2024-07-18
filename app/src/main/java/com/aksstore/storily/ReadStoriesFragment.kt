@@ -37,6 +37,8 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     private var currentStory: Story? = null
     private lateinit var textToSpeech: TextToSpeech
 
+    private var isPaused: Boolean = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -165,15 +167,23 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
                     val textWithHighlights: Spannable =
                         SpannableString(currentStory?.story_description)
                     textWithHighlights.setSpan(
-                        ForegroundColorSpan(Color.BLUE),
+                        ForegroundColorSpan(Color.YELLOW),
                         start,
                         end,
                         Spanned.SPAN_INCLUSIVE_INCLUSIVE
                     )
                     binding.tvStory.text = textWithHighlights
+                    scrollToPosition((start + end) / 2)
                 }
             }
         })
+    }
+
+    private fun scrollToPosition(position: Int) {
+        val layout = binding.tvStory.layout
+        val line = layout.getLineForOffset(position)
+        val y = layout.getLineTop(line)
+        binding.svStory.smoothScrollTo(0, y)
     }
 
     override fun onDestroy() {
