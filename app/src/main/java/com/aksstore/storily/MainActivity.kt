@@ -146,8 +146,12 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     R.id.storiesListFragment -> {
+                        var currentTopic: String? = null
+                        bundle?.let {
+                            currentTopic = it.getString("moduleName")
+                        }
                         supportActionBar?.apply {
-                            this.title = "Stories List"
+                            this.title = currentTopic
                             setDisplayHomeAsUpEnabled(true)
                             setHomeAsUpIndicator(R.drawable.ic_back_arrow_white)
                         }

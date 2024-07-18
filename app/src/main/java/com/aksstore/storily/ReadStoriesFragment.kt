@@ -1,9 +1,16 @@
 package com.aksstore.storily
 
 import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -17,6 +24,9 @@ import com.aksstore.storily.model.Story
 import com.aksstore.storily.utils.isNightMode
 import com.aksstore.storily.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.Locale
 
 
@@ -133,6 +143,37 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
         } else {
             Toast.makeText(requireContext(), "Initialization failed", Toast.LENGTH_SHORT).show()
         }
+
+        textToSpeech.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onStart(utteranceId: String) {
+            }
+
+            override fun onDone(utteranceId: String) {
+            }
+
+            override fun onError(utteranceId: String) {
+            }
+
+            override fun onRangeStart(
+                utteranceId: String,
+                start: Int,
+                end: Int,
+                frame: Int
+            ) {
+                // Use a CoroutineScope to handle the threading
+                CoroutineScope(Dispatchers.Main).launch {
+                    val textWithHighlights: Spannable =
+                        SpannableString(currentStory?.story_description)
+                    textWithHighlights.setSpan(
+                        ForegroundColorSpan(Color.BLUE),
+                        start,
+                        end,
+                        Spanned.SPAN_INCLUSIVE_INCLUSIVE
+                    )
+                    binding.tvStory.text = textWithHighlights
+                }
+            }
+        })
     }
 
     override fun onDestroy() {
