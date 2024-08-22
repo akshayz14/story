@@ -167,7 +167,8 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            val result = textToSpeech.setLanguage(Locale.US)
+            val result = textToSpeech.setLanguage(Locale.getDefault())
+
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Toast.makeText(requireContext(), "Language not supported", Toast.LENGTH_SHORT)
                     .show()
@@ -194,12 +195,10 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
                     frame: Int
                 ) {
                     // Use a CoroutineScope to handle the threading
-
                     CoroutineScope(Dispatchers.Main).launch {
                         highlightText(lastStart, lastEnd)
                         scrollToPosition(start)
                     }
-//                    currentPosition = start
                     lastStart = start
                     lastEnd = end
                 }
@@ -255,12 +254,6 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun resumeReading() {
-//        val remainingText = story.substring(currentPosition)
-//        val params = Bundle()
-//        params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "utteranceId")
-//        textToSpeech.speak(remainingText, TextToSpeech.QUEUE_FLUSH, params, "utteranceId")
-//        isPaused = false
-
         if (currentPosition < story.length) {
             val remainingText = story.substring(currentPosition)
             val params = Bundle()

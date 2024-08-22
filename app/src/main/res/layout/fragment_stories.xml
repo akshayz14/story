@@ -38,7 +38,7 @@
                 android:text="@string/read_story"
                 android:textAllCaps="false"
                 android:visibility="visible"
-                android:textSize="@dimen/sp10" />
+                android:textSize="@dimen/sp12" />
 
             <ImageButton
                 android:id="@+id/btnPlay"
