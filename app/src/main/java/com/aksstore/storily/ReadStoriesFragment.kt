@@ -8,9 +8,7 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -38,6 +36,12 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     private lateinit var textToSpeech: TextToSpeech
 
     private var isPaused: Boolean = false
+    private var currentUtteranceId: String? = null
+    private var currentPosition: Int = 0
+    private var story = ""
+
+    private var lastStart: Int = 0
+    private var lastEnd: Int = 0
 
 
     override fun onCreateView(
@@ -61,8 +65,10 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     private fun setupTextToSpeech() {
         textToSpeech = TextToSpeech(requireContext(), this)
         binding.btnSpeak.setOnClickListener {
-            val text = currentStory?.story_description
-            if (text?.isNotEmpty() == true) {
+            binding.btnPause.visibility = View.VISIBLE
+            binding.btnSpeak.visibility = View.GONE
+            val text = story
+            if (text.isNotEmpty()) {
                 speakOut(text)
             } else {
                 Toast.makeText(requireContext(), "No text to read", Toast.LENGTH_SHORT).show()
@@ -73,7 +79,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private fun populateStory() {
         if (currentStory != null) {
-            binding.tvStory.text = currentStory?.story_description
+            binding.tvStory.text = story
             binding.ivStoryImage.loadImage(
                 currentStory?.story_image,
                 R.drawable.no_image_found_placeholder
@@ -87,6 +93,8 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
         } else {
             arguments?.getSerializable("story") as? Story
         }
+        story = currentStory?.story_description ?: ""
+        currentPosition = 0
         setUpToolBar()
         animateViews()
 
@@ -95,6 +103,28 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
         } else {
             binding.tvStory.setTextColor(resources.getColor(R.color.black, null))
         }
+
+        binding.btnPlay.setOnClickListener {
+            if (isPaused) {
+                resumeReading()
+                binding.btnSpeak.visibility = View.GONE
+                binding.btnPlay.visibility = View.GONE
+                binding.btnPause.visibility = View.VISIBLE
+
+            } else {
+                startReading()
+                binding.btnSpeak.visibility = View.GONE
+                binding.btnPlay.visibility = View.VISIBLE
+                binding.btnPause.visibility = View.GONE
+            }
+        }
+
+        binding.btnPause.setOnClickListener {
+            pauseReading()
+            binding.btnPlay.visibility = View.VISIBLE
+            binding.btnPause.visibility = View.GONE
+        }
+
     }
 
 
@@ -142,41 +172,43 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
                 Toast.makeText(requireContext(), "Language not supported", Toast.LENGTH_SHORT)
                     .show()
             }
+
+            textToSpeech.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+                override fun onStart(utteranceId: String) {
+                    currentUtteranceId = utteranceId
+                    isPaused = false
+                }
+
+                override fun onDone(utteranceId: String) {
+                    currentUtteranceId = null
+
+                }
+
+                override fun onError(utteranceId: String) {
+                }
+
+                override fun onRangeStart(
+                    utteranceId: String,
+                    start: Int,
+                    end: Int,
+                    frame: Int
+                ) {
+                    // Use a CoroutineScope to handle the threading
+
+                    CoroutineScope(Dispatchers.Main).launch {
+                        highlightText(lastStart, lastEnd)
+                        scrollToPosition(start)
+                    }
+//                    currentPosition = start
+                    lastStart = start
+                    lastEnd = end
+                }
+            })
         } else {
             Toast.makeText(requireContext(), "Initialization failed", Toast.LENGTH_SHORT).show()
         }
 
-        textToSpeech.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String) {
-            }
 
-            override fun onDone(utteranceId: String) {
-            }
-
-            override fun onError(utteranceId: String) {
-            }
-
-            override fun onRangeStart(
-                utteranceId: String,
-                start: Int,
-                end: Int,
-                frame: Int
-            ) {
-                // Use a CoroutineScope to handle the threading
-                CoroutineScope(Dispatchers.Main).launch {
-                    val textWithHighlights: Spannable =
-                        SpannableString(currentStory?.story_description)
-                    textWithHighlights.setSpan(
-                        ForegroundColorSpan(Color.YELLOW),
-                        start,
-                        end,
-                        Spanned.SPAN_INCLUSIVE_INCLUSIVE
-                    )
-                    binding.tvStory.text = textWithHighlights
-                    scrollToPosition((start + end) / 2)
-                }
-            }
-        })
     }
 
     private fun scrollToPosition(position: Int) {
@@ -194,6 +226,48 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private fun speakOut(text: String) {
         textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
+
+    private fun highlightText(start: Int, end: Int) {
+        val textWithHighlights: Spannable = SpannableString(story)
+        textWithHighlights.setSpan(
+            ForegroundColorSpan(Color.YELLOW),
+            start,
+            end,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        binding.tvStory.text = textWithHighlights
+    }
+
+
+    private fun startReading() {
+        val params = Bundle()
+        params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "utteranceId")
+        textToSpeech.speak(story, TextToSpeech.QUEUE_FLUSH, params, "utteranceId")
+    }
+
+    private fun pauseReading() {
+        if (textToSpeech.isSpeaking) {
+            textToSpeech.stop()
+            isPaused = true
+        }
+    }
+
+    private fun resumeReading() {
+//        val remainingText = story.substring(currentPosition)
+//        val params = Bundle()
+//        params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "utteranceId")
+//        textToSpeech.speak(remainingText, TextToSpeech.QUEUE_FLUSH, params, "utteranceId")
+//        isPaused = false
+
+        if (currentPosition < story.length) {
+            val remainingText = story.substring(currentPosition)
+            val params = Bundle()
+            params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "utteranceId")
+            textToSpeech.speak(remainingText, TextToSpeech.QUEUE_FLUSH, params, "utteranceId")
+            isPaused = false
+        }
     }
 
 }
