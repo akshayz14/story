@@ -12,6 +12,7 @@ import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavOptions
+import com.aksstore.storily.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -87,7 +88,7 @@ fun ImageView.loadImageWithThumb(
 ) {
     Glide.with(this)
         .load(url)
-        .thumbnail(0.05f)
+        .thumbnail(Glide.with(this).load(R.drawable.ic_loading))
         .transition(DrawableTransitionOptions.withCrossFade())
         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .also { glide ->

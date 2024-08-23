@@ -71,8 +71,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
 
     //Glide
-    implementation("com.github.bumptech.glide:glide:4.12.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("com.github.bumptech.glide:glide:4.15.0")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.15.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.0")
 
     //hilt
     implementation("com.google.dagger:hilt-android:2.44")

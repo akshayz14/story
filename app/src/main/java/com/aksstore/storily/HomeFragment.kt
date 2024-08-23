@@ -111,9 +111,9 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun identifyAndSetCardDetails(i: Int, cardView: CardView) {
+    private fun identifyAndSetCardDetails(storyId: Int, cardView: CardView) {
 
-        when (i) {
+        when (storyId) {
             AppConstants.KIDS_STORIES -> {
                 setupUIForCardView(
                     R.drawable.zero_to_three_home,
