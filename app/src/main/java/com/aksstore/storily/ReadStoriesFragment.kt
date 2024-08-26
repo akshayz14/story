@@ -9,11 +9,14 @@ import android.speech.tts.UtteranceProgressListener
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -103,6 +106,31 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
         } else {
             binding.tvStory.setTextColor(resources.getColor(R.color.black, null))
         }
+
+        binding.fab.bringToFront()
+        binding.fab.setOnClickListener {
+            if (binding.seekBar.visibility == View.GONE) {
+                binding.seekBar.visibility = View.VISIBLE
+            } else {
+                binding.seekBar.visibility = View.GONE
+            }
+        }
+
+        binding.llStoryView.setOnClickListener {
+            if (binding.seekBar.visibility == View.VISIBLE) {
+                binding.seekBar.visibility = View.GONE
+            }
+        }
+
+        binding.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                // Update TextView font size
+                binding.tvStory.textSize = progress.toFloat()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+        })
 
         binding.btnPlay.setOnClickListener {
             if (isPaused) {
@@ -195,9 +223,14 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
                     frame: Int
                 ) {
                     // Use a CoroutineScope to handle the threading
-                    CoroutineScope(Dispatchers.Main).launch {
-                        highlightText(lastStart, lastEnd)
-                        scrollToPosition(start)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        try {
+                            highlightText(lastStart, lastEnd)
+                            scrollToPosition(start)
+                        } catch (e : Exception) {
+                            Log.d("TAG", "onRangeStart: $e")
+                        }
+
                     }
                     lastStart = start
                     lastEnd = end
