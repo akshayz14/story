@@ -20,9 +20,7 @@ class FullScreenImageDialogFragment : DialogFragment() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-//        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-//        dialog.setCancelable(true)
         dialog.setCanceledOnTouchOutside(true)
         val fullImageView = dialog.findViewById<ImageView>(R.id.fullImageView)
         Glide.with(requireContext())

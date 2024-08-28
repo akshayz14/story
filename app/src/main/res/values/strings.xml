@@ -56,4 +56,5 @@
     <string name="welcome_description">Welcome to Storily, best place to read offline stories. Enjoy and share with others.</string>
     <string name="version">"Version : "</string>
     <string name="search">Search</string>
+    <string name="definition_error">Can\'t get definition of the word at the moment\\n please try after sometime.</string>
 </resources>

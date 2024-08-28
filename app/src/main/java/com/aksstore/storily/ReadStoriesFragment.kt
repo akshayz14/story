@@ -1,7 +1,6 @@
 package com.aksstore.storily
 
 import android.animation.ObjectAnimator
-import android.app.Dialog
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -17,21 +16,25 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.aksstore.storily.databinding.FragmentStoriesBinding
 import com.aksstore.storily.fragments.FullScreenImageDialogFragment
 import com.aksstore.storily.model.Story
+import com.aksstore.storily.model.dictionary.DictionaryResponse
 import com.aksstore.storily.utils.getSelectedText
 import com.aksstore.storily.utils.isNightMode
 import com.aksstore.storily.utils.loadImage
-import com.bumptech.glide.Glide
+import com.aksstore.storily.viewmodel.ReadStoriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -53,6 +56,8 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private var lastStart: Int = 0
     private var lastEnd: Int = 0
+
+    private val viewModel: ReadStoriesViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -160,7 +165,6 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
         setTextSelection()
 
-
         binding.ivStoryImage.setOnClickListener {
             showImageDialog()
         }
@@ -169,25 +173,6 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun showImageDialog() {
-
-//        val dialog = Dialog(requireActivity(), android.R.style.Theme_Black_NoTitleBar_Fullscreen)
-
-//        val dialog = Dialog(requireActivity(), android.R.style.Theme_Light)
-//
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//
-//        dialog.setContentView(R.layout.dialog_full_image)
-//        dialog.setCancelable(true)
-//        dialog.setCanceledOnTouchOutside(true)
-//        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-//
-//        val fullImageView = dialog.findViewById<ImageView>(R.id.fullImageView)
-//
-//        Glide.with(requireContext())
-//            .load(currentStory?.story_image)
-//            .into(fullImageView)
-//
-//        dialog.show()
         val fragment = FullScreenImageDialogFragment()
         fragment.arguments = Bundle().apply {
             putString("image_url", currentStory?.story_image)
@@ -214,6 +199,16 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
                     R.id.iSearch -> {
                         val selectedText = getSelectedText(binding.tvStory)
 
+                        if (selectedText.contains(" ")) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Please select 1 word only",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            return false
+                        }
+
+                        viewModel.getSearchResultBySearchTerm(selectedText)
                         handleCustomAction(selectedText)
                         mode.finish()
                         true
@@ -231,8 +226,49 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
 
     private fun handleCustomAction(selectedText: String) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            viewModel.searchResult.collect() {
+                if (it.size > 0) {
+                    handleSearchResult(it, selectedText)
+                }
+            }
+        }
+    }
 
+    private fun handleSearchResult(dictionaryResponse: DictionaryResponse, selectedText: String) {
 
+        try {
+            val alertDialog = AlertDialog.Builder(requireActivity()).create()
+            val titleView = TextView(requireActivity())
+            titleView.text = selectedText
+            titleView.setPadding(40, 40, 40, 40)  // Add some padding if needed
+            if (isNightMode(requireContext())) {
+                titleView.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.white
+                    )
+                ) // Set your custom color
+            } else {
+                titleView.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.black
+                    )
+                ) // Set your custom color
+            }
+            titleView.textSize = 20f
+
+            alertDialog.setCustomTitle(titleView)
+            alertDialog.setMessage(dictionaryResponse[0].meanings[0].definitions[0].definition)
+            alertDialog.setButton(
+                AlertDialog.BUTTON_NEUTRAL, "OK"
+            ) { dialog, _ -> dialog.dismiss() }
+            alertDialog.show()
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
+            Log.d("TAG", "handleSearchResult: $e")
+        }
     }
 
 

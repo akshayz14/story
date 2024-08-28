@@ -14,7 +14,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 2
-        versionName = "1.0"
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -76,14 +76,21 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.0")
 
     //hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
+    kapt("androidx.hilt:hilt-compiler:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
+
 
     implementation("com.google.android.play:feature-delivery:2.1.0")
 
     // For Kotlin users, also import the Kotlin extensions library for Play Feature Delivery:
     implementation("com.google.android.play:feature-delivery-ktx:2.1.0")
 
+    //retrofit
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
 }
 
