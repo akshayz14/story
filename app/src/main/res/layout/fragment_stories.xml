@@ -82,7 +82,6 @@
 
 
             <LinearLayout
-                android:id="@+id/llStoryView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -95,6 +94,8 @@
                     android:breakStrategy="balanced"
                     android:fontFamily="@font/font_family_galano_regular"
                     android:gravity="fill"
+                    android:textIsSelectable="true"
+                    android:clickable="false"
                     android:textSize="@dimen/sp25"
                     tools:text="bckjhwrbvkjrvb" />
 

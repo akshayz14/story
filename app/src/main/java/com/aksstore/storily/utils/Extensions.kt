@@ -1,5 +1,6 @@
 package com.aksstore.storily.utils
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.AssetManager
 import android.content.res.Configuration
@@ -7,6 +8,7 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
@@ -17,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.transition.ViewPropertyTransition
 
 fun NavController.navigateSafe(@IdRes resId: Int, args: Bundle? = null) {
     val destinationId = currentDestination?.getAction(resId)?.destinationId
@@ -113,3 +116,21 @@ fun isNightMode(context: Context): Boolean {
         context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
     return nightModeFlags == Configuration.UI_MODE_NIGHT_YES
 }
+
+ fun getSelectedText(tvStory: TextView): String {
+    val start = tvStory.selectionStart
+    val end = tvStory.selectionEnd
+    return if (start in 0..<end) {
+        tvStory.text.substring(start, end)
+    } else {
+        ""
+    }
+}
+
+var animationObject =
+    ViewPropertyTransition.Animator { view ->
+        view.alpha = 0f
+        val fadeAnim = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
+        fadeAnim.setDuration(2500)
+        fadeAnim.start()
+    }

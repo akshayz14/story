@@ -1,6 +1,7 @@
 package com.aksstore.storily
 
 import android.animation.ObjectAnimator
+import android.app.Dialog
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -10,20 +11,27 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.view.ActionMode
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.aksstore.storily.databinding.FragmentStoriesBinding
+import com.aksstore.storily.fragments.FullScreenImageDialogFragment
 import com.aksstore.storily.model.Story
+import com.aksstore.storily.utils.getSelectedText
 import com.aksstore.storily.utils.isNightMode
 import com.aksstore.storily.utils.loadImage
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -71,6 +79,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
             binding.btnPause.visibility = View.VISIBLE
             binding.btnSpeak.visibility = View.GONE
             val text = story
+            binding.tvStory.setTextIsSelectable(false)
             if (text.isNotEmpty()) {
                 speakOut(text)
             } else {
@@ -116,11 +125,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
             }
         }
 
-        binding.llStoryView.setOnClickListener {
-            if (binding.seekBar.visibility == View.VISIBLE) {
-                binding.seekBar.visibility = View.GONE
-            }
-        }
+
 
         binding.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -152,6 +157,81 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
             binding.btnPlay.visibility = View.VISIBLE
             binding.btnPause.visibility = View.GONE
         }
+
+        setTextSelection()
+
+
+        binding.ivStoryImage.setOnClickListener {
+            showImageDialog()
+        }
+
+
+    }
+
+    private fun showImageDialog() {
+
+//        val dialog = Dialog(requireActivity(), android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+
+//        val dialog = Dialog(requireActivity(), android.R.style.Theme_Light)
+//
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//
+//        dialog.setContentView(R.layout.dialog_full_image)
+//        dialog.setCancelable(true)
+//        dialog.setCanceledOnTouchOutside(true)
+//        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+//
+//        val fullImageView = dialog.findViewById<ImageView>(R.id.fullImageView)
+//
+//        Glide.with(requireContext())
+//            .load(currentStory?.story_image)
+//            .into(fullImageView)
+//
+//        dialog.show()
+        val fragment = FullScreenImageDialogFragment()
+        fragment.arguments = Bundle().apply {
+            putString("image_url", currentStory?.story_image)
+        }
+        activity?.supportFragmentManager?.let { fragment.show(it, "fullScreenImage") }
+    }
+
+
+    private fun setTextSelection() {
+
+        binding.tvStory.customSelectionActionModeCallback = object : ActionMode.Callback {
+
+            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+                requireActivity().menuInflater.inflate(R.menu.text_selection_custom_menu, menu)
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+                return when (item.itemId) {
+                    R.id.iSearch -> {
+                        val selectedText = getSelectedText(binding.tvStory)
+
+                        handleCustomAction(selectedText)
+                        mode.finish()
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode) {
+                Log.d("TAG", "onDestroyActionMode: ")
+            }
+        }
+    }
+
+
+    private fun handleCustomAction(selectedText: String) {
+
 
     }
 
@@ -227,11 +307,14 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
                         try {
                             highlightText(lastStart, lastEnd)
                             scrollToPosition(start)
-                        } catch (e : Exception) {
+                            Log.d("TAG", "onRangeStart: $start")
+                        } catch (e: Exception) {
                             Log.d("TAG", "onRangeStart: $e")
                         }
 
                     }
+
+
                     lastStart = start
                     lastEnd = end
                 }

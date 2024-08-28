@@ -55,4 +55,5 @@
     <string name="welcome">Welcome to Storily</string>
     <string name="welcome_description">Welcome to Storily, best place to read offline stories. Enjoy and share with others.</string>
     <string name="version">"Version : "</string>
+    <string name="search">Search</string>
 </resources>
