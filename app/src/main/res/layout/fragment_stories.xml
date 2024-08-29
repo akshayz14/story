@@ -67,6 +67,15 @@
 
         </androidx.cardview.widget.CardView>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <ScrollView
@@ -92,10 +101,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:breakStrategy="balanced"
+                    android:clickable="false"
                     android:fontFamily="@font/font_family_galano_regular"
                     android:gravity="fill"
                     android:textIsSelectable="true"
-                    android:clickable="false"
                     android:textSize="@dimen/sp25"
                     tools:text="bckjhwrbvkjrvb" />
 
@@ -145,7 +154,6 @@
                 app:layout_constraintEnd_toStartOf="@id/fab"
                 app:layout_constraintTop_toTopOf="@id/fab" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

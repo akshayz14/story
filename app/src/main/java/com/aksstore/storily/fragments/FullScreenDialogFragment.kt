@@ -7,6 +7,7 @@ import android.view.Window
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.aksstore.storily.R
+import com.aksstore.storily.utils.AppConstants
 import com.bumptech.glide.Glide
 
 class FullScreenImageDialogFragment : DialogFragment() {
@@ -24,7 +25,7 @@ class FullScreenImageDialogFragment : DialogFragment() {
         dialog.setCanceledOnTouchOutside(true)
         val fullImageView = dialog.findViewById<ImageView>(R.id.fullImageView)
         Glide.with(requireContext())
-            .load(arguments?.getString("image_url"))
+            .load(arguments?.getString(AppConstants.IMAGE_URL))
             .into(fullImageView)
 
         return dialog

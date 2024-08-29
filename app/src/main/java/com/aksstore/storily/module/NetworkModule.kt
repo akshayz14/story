@@ -1,7 +1,11 @@
 package com.aksstore.storily.module
 
+import com.aksstore.storily.base.NetworkResult
+import com.aksstore.storily.base.NetworkResultAdapter
 import com.aksstore.storily.domain.DictionaryService
+import com.aksstore.storily.model.dictionary.DictionaryResponse
 import com.aksstore.storily.utils.ApiEndPoints
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,7 +45,7 @@ class NetworkModule {
     fun provideRetrofit(okHttpClient: okhttp3.OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(ApiEndPoints.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
     }
@@ -51,5 +55,12 @@ class NetworkModule {
     fun provideDictionaryService(retrofit: Retrofit): DictionaryService {
         return retrofit.create(DictionaryService::class.java)
     }
+
+    val gson = GsonBuilder()
+        .registerTypeAdapter(
+            NetworkResult::class.java,
+            NetworkResultAdapter<DictionaryResponse>(DictionaryResponse::class.java)
+        )
+        .create()
 
 }

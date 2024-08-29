@@ -23,4 +23,7 @@ object AppConstants {
     const val MISCELLANEOUS_STORIES = 16
     const val GRANDMA_STORIES = 17
 
+
+    const val IMAGE_URL = "image_url"
+
 }

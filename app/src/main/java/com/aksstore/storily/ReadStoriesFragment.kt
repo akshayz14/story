@@ -26,11 +26,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.aksstore.storily.base.NetworkResult
 import com.aksstore.storily.databinding.FragmentStoriesBinding
 import com.aksstore.storily.fragments.FullScreenImageDialogFragment
 import com.aksstore.storily.model.Story
 import com.aksstore.storily.model.dictionary.DictionaryResponse
+import com.aksstore.storily.utils.AppConstants
 import com.aksstore.storily.utils.getSelectedText
 import com.aksstore.storily.utils.isNightMode
 import com.aksstore.storily.utils.loadImage
@@ -59,6 +63,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private val viewModel: ReadStoriesViewModel by viewModels()
 
+    private var alertDialog: AlertDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -175,7 +180,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     private fun showImageDialog() {
         val fragment = FullScreenImageDialogFragment()
         fragment.arguments = Bundle().apply {
-            putString("image_url", currentStory?.story_image)
+            putString(AppConstants.IMAGE_URL, currentStory?.story_image)
         }
         activity?.supportFragmentManager?.let { fragment.show(it, "fullScreenImage") }
     }
@@ -226,21 +231,75 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
 
     private fun handleCustomAction(selectedText: String) {
-        lifecycleScope.launch(Dispatchers.Main) {
-            viewModel.searchResult.collect() {
-                if (it.size > 0) {
-                    handleSearchResult(it, selectedText)
+        // Observe the searchResult StateFlow
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                viewModel.searchResult.collect { result ->
+
+                    when (result) {
+                        is NetworkResult.Success -> {
+                            val dictionaryResponse = result.data
+                            dictionaryResponse?.let {
+                                // Update UI with the data
+                                if (it.size > 0) {
+                                    handleSearchResult(it, selectedText)
+                                }
+                            }
+                        }
+
+                        is NetworkResult.Error -> {
+                            // Handle the error case
+                            val exception = result.exception
+                            showError(exception)
+                        }
+
+                        NetworkResult.Loading -> {
+                            // Handle the loading state
+                            showLoading()
+                        }
+
+                        null -> {
+                            // Handle the case where there's no result yet
+                            // or it's been reset
+                            Log.d("TAG", "handleCustomAction: ")
+                        }
+                    }
+
                 }
             }
         }
+
+    }
+
+    private fun showLoading() {
+
+        binding.progressBar.visibility = View.VISIBLE
+
+    }
+
+    private fun hideLoaading() {
+
+        binding.progressBar.visibility = View.GONE
+
+    }
+
+    private fun showError(message: String?) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     private fun handleSearchResult(dictionaryResponse: DictionaryResponse, selectedText: String) {
 
+
+        if (binding.progressBar.visibility == View.VISIBLE) {
+            hideLoaading()
+        }
         try {
-            val alertDialog = AlertDialog.Builder(requireActivity()).create()
+            alertDialog?.dismiss()
+            alertDialog = AlertDialog.Builder(requireContext()).create()
             val titleView = TextView(requireActivity())
-            titleView.text = selectedText
+            titleView.text = selectedText.uppercase()
             titleView.setPadding(40, 40, 40, 40)  // Add some padding if needed
             if (isNightMode(requireContext())) {
                 titleView.setTextColor(
@@ -248,23 +307,23 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
                         requireActivity(),
                         R.color.white
                     )
-                ) // Set your custom color
+                )
             } else {
                 titleView.setTextColor(
                     ContextCompat.getColor(
                         requireActivity(),
                         R.color.black
                     )
-                ) // Set your custom color
+                )
             }
             titleView.textSize = 20f
 
-            alertDialog.setCustomTitle(titleView)
-            alertDialog.setMessage(dictionaryResponse[0].meanings[0].definitions[0].definition)
-            alertDialog.setButton(
-                AlertDialog.BUTTON_NEUTRAL, "OK"
-            ) { dialog, _ -> dialog.dismiss() }
-            alertDialog.show()
+            alertDialog?.apply {
+                setCustomTitle(titleView)
+                setMessage(dictionaryResponse[0].meanings[0].definitions[0].definition)
+                setButton(AlertDialog.BUTTON_POSITIVE, "OK") { dialog, _ -> dialog.dismiss() }
+                show()
+            }
         } catch (e: Exception) {
             Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
             Log.d("TAG", "handleSearchResult: $e")
