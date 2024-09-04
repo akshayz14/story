@@ -37,6 +37,7 @@
                 android:layout_gravity="end|bottom"
                 android:text="@string/read_story"
                 android:textAllCaps="false"
+                android:enabled="false"
                 android:textSize="@dimen/sp12"
                 android:visibility="visible" />
 

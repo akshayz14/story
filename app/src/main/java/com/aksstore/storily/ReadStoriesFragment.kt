@@ -68,7 +68,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentStoriesBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
@@ -84,7 +84,8 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun setupTextToSpeech() {
-        textToSpeech = TextToSpeech(requireContext(), this)
+        textToSpeech =
+            TextToSpeech(StorilyApplication.getAppContext(), this)
         binding.btnSpeak.setOnClickListener {
             binding.btnPause.visibility = View.VISIBLE
             binding.btnSpeak.visibility = View.GONE
@@ -279,7 +280,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     }
 
-    private fun hideLoaading() {
+    private fun hideLoading() {
 
         binding.progressBar.visibility = View.GONE
 
@@ -291,9 +292,8 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private fun handleSearchResult(dictionaryResponse: DictionaryResponse, selectedText: String) {
 
-
         if (binding.progressBar.visibility == View.VISIBLE) {
-            hideLoaading()
+            hideLoading()
         }
         try {
             alertDialog?.dismiss()
@@ -370,12 +370,25 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            val result = textToSpeech.setLanguage(Locale.getDefault())
+            textToSpeech = TextToSpeech(
+                StorilyApplication.getAppContext(),
+                { status ->
+                    if (status == TextToSpeech.SUCCESS) {
+                        // Set the language or do other initialization here
+                        val result = textToSpeech.setLanguage(Locale("hin"))
 
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Toast.makeText(requireContext(), "Language not supported", Toast.LENGTH_SHORT)
-                    .show()
-            }
+                        binding.btnSpeak.isEnabled = true
+
+                        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                            Log.e("TTS", "The Language specified is not supported!")
+                        }
+                    } else {
+                        Log.e("TTS", "Initialization Failed!")
+                    }
+                },
+                "com.google.android.tts"
+            )
+
 
             textToSpeech.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                 override fun onStart(utteranceId: String) {
