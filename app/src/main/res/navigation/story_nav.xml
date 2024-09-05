@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.aksstore.storily.HomeFragment"
+        android:name="com.aksstore.storily.HomeFragment2"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_home2">
         <action
             android:id="@+id/action_homeFragment_to_storiesListFragment"
             app:destination="@id/storiesListFragment"

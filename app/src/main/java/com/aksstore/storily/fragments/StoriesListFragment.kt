@@ -14,10 +14,7 @@ import com.aksstore.storily.R
 import com.aksstore.storily.adapter.StoryAdapter
 import com.aksstore.storily.databinding.FragmentStoriesListBinding
 import com.aksstore.storily.model.Story
-import com.aksstore.storily.model.StoryModel
-import com.aksstore.storily.utils.readAssetsFile
 import com.aksstore.storily.viewmodel.StorilyViewModel
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,24 +55,11 @@ class StoriesListFragment : Fragment(), StoryAdapter.OnItemClickListener {
         binding.rvStoriesList.adapter = storyAdapter
     }
 
-    /**
-     * Old way of loading data from assets folder
-     *
-     * */
-    private fun loadJsonFromAssets(moduleName: String) {
-        val moduleJson: String = requireContext().assets.readAssetsFile(moduleName + ".json")
-        Log.d("TAG", "loadJsonFromAssets: " + moduleJson)
 
-        if (moduleJson.isNotEmpty()) {
-            val module = Gson().fromJson(moduleJson, StoryModel::class.java)
-            storyList = module.stories.toMutableList()
-            storyAdapter.setData(storyList)
-        }
-    }
 
     /**
      *
-     * New way of loading data from viewmodel
+     * Loading data from viewModel
      *
      * */
     private fun loadJsonFromViewModel(moduleName : String) {

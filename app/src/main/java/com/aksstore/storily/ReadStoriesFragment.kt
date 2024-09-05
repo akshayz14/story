@@ -455,7 +455,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     private fun highlightText(start: Int, end: Int) {
         val textWithHighlights: Spannable = SpannableString(story)
         textWithHighlights.setSpan(
-            ForegroundColorSpan(Color.YELLOW),
+            ForegroundColorSpan(Color.CYAN),
             start,
             end,
             Spannable.SPAN_INCLUSIVE_INCLUSIVE

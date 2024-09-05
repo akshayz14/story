@@ -1,0 +1,146 @@
+[
+  {
+    "id": "1",
+    "story_title": "Kids Stories",
+    "story_desc": "Stories for kids of all ages.",
+    "story_image": "zero_to_three_home",
+    "extra": "",
+    "order": 1,
+    "name": "KIDS_STORIES"
+  },
+  {
+    "id": "2",
+    "story_title": "Mythological stories",
+    "story_desc": "Stories about Indian mythology for all.",
+    "story_image": "indian_mythology_home",
+    "extra": "",
+    "order": 2,
+    "name": "MYTHOLOGICAL_STORIES"
+  },
+  {
+    "id": "3",
+    "story_title": "Inspirational stories",
+    "story_desc": "Stories that inspire you.",
+    "story_image": "inspirational_home",
+    "extra": "",
+    "order": 3,
+    "name": "INSPIRATIONAL_STORIES"
+  },
+  {
+    "id": "4",
+    "story_title": "Princess stories",
+    "story_desc": "Stories about various princesses.",
+    "story_image": "princess_home",
+    "extra": "",
+    "order": 4,
+    "name": "PRINCESS_STORIES"
+  },
+  {
+    "id": "5",
+    "story_title": "Science stories",
+    "story_desc": "Science facts and people behind them.",
+    "story_image": "science_home",
+    "extra": "",
+    "order": 5,
+    "name": "SCIENCE_STORIES"
+  },
+  {
+    "id": "6",
+    "story_title": "Stars & Planets",
+    "story_desc": "What's cooking in our universe?!",
+    "story_image": "planets_home",
+    "extra": "",
+    "order": 6,
+    "name": "PLANETS_STORIES"
+  },
+  {
+    "id": "7",
+    "story_title": "Adventure Stories",
+    "story_desc": "A little adventure never hurt anyone.",
+    "story_image": "adventure_home",
+    "extra": "",
+    "order": 7,
+    "name": "ADVENTURE_STORIES"
+  },
+  {
+    "id": "8",
+    "story_title": "Motivational Stories",
+    "story_desc": "Stories that motivate you.",
+    "story_image": "motivational_home",
+    "extra": "",
+    "order": 8,
+    "name": "MOTIVATIONAL_STORIES"
+  },
+  {
+    "id": "9",
+    "story_title": "Akbar and Birbal stories",
+    "story_desc": "Exciting stories about Akbar and Birbal.",
+    "story_image": "akbar_birbal",
+    "extra": "",
+    "order": 9,
+    "name": "AKBAR_BIRBAL"
+  },
+  {
+    "id": "10",
+    "story_title": "Folktales",
+    "story_desc": "Folktales across the world.",
+    "story_image": "folktales_home",
+    "extra": "",
+    "order": 10,
+    "name": "FOLKTALE_STORIES"
+  },
+  {
+    "id": "11",
+    "story_title": "Jokes",
+    "story_desc": "Rib tickling stories.",
+    "story_image": "jokes_home",
+    "extra": "",
+    "order": 11,
+    "name": "JOKES_STORIES"
+  },
+  {
+    "id": "12",
+    "story_title": "Poems",
+    "story_desc": "Some poems for all.",
+    "story_image": "poem_home",
+    "extra": "",
+    "order": 12,
+    "name": "POEMS"
+  },
+  {
+    "id": "13",
+    "story_title": "Friendship stories",
+    "story_desc": "Friends and friendship stories.",
+    "story_image": "ten_home",
+    "extra": "",
+    "order": 13,
+    "name": "FRIENDSHIP_STORIES"
+  },
+  {
+    "id": "14",
+    "story_title": "Tenali Ram stories",
+    "story_desc": "Stories by famous poet Tenali Rama.",
+    "story_image": "tenali_rama_home",
+    "extra": "",
+    "order": 14,
+    "name": "TENALI_RAM_STORIES"
+  },
+  {
+    "id": "15",
+    "story_title": "Arabian night stories",
+    "story_desc": "Middle eastern folktales called Arabian nights.",
+    "story_image": "arabian_nights_home",
+    "extra": "",
+    "order": 15,
+    "name": "ARABIAN_NIGHTS_STORIES"
+  },
+  {
+    "id": "16",
+    "story_title": "Miscellaneous",
+    "story_desc": "Collection of various stories",
+    "story_image": "miscellaneous_home",
+    "extra": "",
+    "order": 16,
+    "name": "MISCELLANEOUS_STORIES"
+  }
+]
