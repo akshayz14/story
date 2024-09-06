@@ -154,6 +154,8 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
                 binding.btnSpeak.visibility = View.GONE
                 binding.btnPlay.visibility = View.GONE
                 binding.btnPause.visibility = View.VISIBLE
+                binding.tvStory.setTextIsSelectable(false)
+
 
             } else {
                 startReading()
@@ -167,6 +169,8 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
             pauseReading()
             binding.btnPlay.visibility = View.VISIBLE
             binding.btnPause.visibility = View.GONE
+            binding.tvStory.setTextIsSelectable(true)
+
         }
 
         setTextSelection()
