@@ -432,7 +432,6 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
                         try {
                             highlightText(lastStart, lastEnd)
                             scrollToPosition(start)
-                            Log.d("TAG", "onRangeStart: $start")
                         } catch (e: Exception) {
                             Log.d("TAG", "onRangeStart: $e")
                         }
