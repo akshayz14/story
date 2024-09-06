@@ -17,7 +17,7 @@
         app:cardCornerRadius="@dimen/dp_8"
         app:cardElevation="@dimen/dp5">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -28,31 +28,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp150"
                 android:scaleType="fitXY"
-                android:src="@drawable/zero_to_three_home" />
+                android:src="@drawable/zero_to_three_home"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvStoriesAbout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"
                 android:gravity="center_horizontal"
                 android:paddingHorizontal="@dimen/dp5"
                 android:textSize="@dimen/sp20"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivStoriesType"
                 tools:text="0-3years" />
 
             <TextView
                 android:id="@+id/tvStoriesAboutDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="@dimen/dp10"
-                android:gravity="center_horizontal"
                 android:layout_gravity="bottom"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:padding="@dimen/dp10"
                 android:textSize="@dimen/sp15"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvStoriesAbout"
                 tools:text="@string/app_name" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 </layout>

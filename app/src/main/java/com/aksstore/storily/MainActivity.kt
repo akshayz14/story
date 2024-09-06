@@ -150,8 +150,15 @@ class MainActivity : AppCompatActivity() {
                         bundle?.let {
                             currentTopic = it.getString("moduleName")
                         }
+
+                        val modifiedCurrentTopic =
+                            currentTopic?.replace("_", " ")  // Replace underscore with space
+                                ?.lowercase()                                       // Convert to lowercase
+                                ?.split(" ")                                        // Split into words
+                                ?.joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } }
+
                         supportActionBar?.apply {
-                            this.title = currentTopic
+                            this.title = modifiedCurrentTopic
                             setDisplayHomeAsUpEnabled(true)
                             setHomeAsUpIndicator(R.drawable.ic_back_arrow_white)
                         }

@@ -10,7 +10,7 @@
   },
   {
     "id": "2",
-    "story_title": "Mythological stories",
+    "story_title": "Mythological Stories",
     "story_desc": "Stories about Indian mythology for all.",
     "story_image": "indian_mythology_home",
     "extra": "",
@@ -19,7 +19,7 @@
   },
   {
     "id": "3",
-    "story_title": "Inspirational stories",
+    "story_title": "Inspirational Stories",
     "story_desc": "Stories that inspire you.",
     "story_image": "inspirational_home",
     "extra": "",
@@ -28,7 +28,7 @@
   },
   {
     "id": "4",
-    "story_title": "Princess stories",
+    "story_title": "Princess Stories",
     "story_desc": "Stories about various princesses.",
     "story_image": "princess_home",
     "extra": "",
@@ -37,7 +37,7 @@
   },
   {
     "id": "5",
-    "story_title": "Science stories",
+    "story_title": "Science Stories",
     "story_desc": "Science facts and people behind them.",
     "story_image": "science_home",
     "extra": "",
@@ -73,7 +73,7 @@
   },
   {
     "id": "9",
-    "story_title": "Akbar and Birbal stories",
+    "story_title": "Akbar and Birbal Stories",
     "story_desc": "Exciting stories about Akbar and Birbal.",
     "story_image": "akbar_birbal",
     "extra": "",
@@ -109,7 +109,7 @@
   },
   {
     "id": "13",
-    "story_title": "Friendship stories",
+    "story_title": "Friendship Stories",
     "story_desc": "Friends and friendship stories.",
     "story_image": "ten_home",
     "extra": "",
@@ -118,7 +118,7 @@
   },
   {
     "id": "14",
-    "story_title": "Tenali Ram stories",
+    "story_title": "Tenali Ram Stories",
     "story_desc": "Stories by famous poet Tenali Rama.",
     "story_image": "tenali_rama_home",
     "extra": "",
@@ -127,7 +127,7 @@
   },
   {
     "id": "15",
-    "story_title": "Arabian night stories",
+    "story_title": "Arabian night Stories",
     "story_desc": "Middle eastern folktales called Arabian nights.",
     "story_image": "arabian_nights_home",
     "extra": "",
