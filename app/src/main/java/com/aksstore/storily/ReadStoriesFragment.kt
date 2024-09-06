@@ -265,6 +265,9 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
                             // Handle the case where there's no result yet
                             // or it's been reset
                             Log.d("TAG", "handleCustomAction: ")
+                            if (binding.progressBar.visibility == View.VISIBLE) {
+                                hideLoading()
+                            }
                         }
                     }
 
@@ -288,6 +291,9 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private fun showError(message: String?) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        if (binding.progressBar.visibility == View.VISIBLE) {
+            hideLoading()
+        }
     }
 
     private fun handleSearchResult(dictionaryResponse: DictionaryResponse, selectedText: String) {

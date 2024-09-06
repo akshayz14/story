@@ -91,6 +91,8 @@
 -keep class retrofit2.** { *; }
 -keep interface retrofit2.** { *; }
 -keep class com.google.gson.** { *; }
+-dontwarn retrofit2.**
+
 
 # Keep @SerializedName annotations
 -keepattributes *Annotation*
@@ -104,14 +106,6 @@
 -keepclassmembers class * {
     *;
 }
-
-# Gson specific rules (if using Gson)
--keep class com.google.gson.** { *; }
-
-# Retrofit specific rules (if using Retrofit)
--keep class retrofit2.** { *; }
--keep interface retrofit2.** { *; }
--dontwarn retrofit2.**
 
 # Keep necessary attributes and methods for reflection
 -keepclassmembers class ** {
