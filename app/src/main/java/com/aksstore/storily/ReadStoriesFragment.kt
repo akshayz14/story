@@ -196,11 +196,14 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
         binding.tvStory.customSelectionActionModeCallback = object : ActionMode.Callback {
 
             override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                requireActivity().menuInflater.inflate(R.menu.text_selection_custom_menu, menu)
+                mode.menuInflater.inflate(R.menu.text_selection_custom_menu, menu)
                 return true
             }
 
             override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+                menu.removeItem(android.R.id.copy)         // Remove copy
+                menu.removeItem(android.R.id.shareText)    // Remove share
+                menu.removeItem(android.R.id.selectAll)  // Remove select all
                 return false
             }
 
@@ -294,7 +297,11 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun showError(message: String?) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            resources.getString(R.string.definition_error),
+            Toast.LENGTH_LONG
+        ).show()
         if (binding.progressBar.visibility == View.VISIBLE) {
             hideLoading()
         }
