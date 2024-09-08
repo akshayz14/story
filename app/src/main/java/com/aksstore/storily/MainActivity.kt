@@ -1,6 +1,7 @@
 package com.aksstore.storily
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.nav_home,
                 R.id.nav_contact_us,
+                R.id.nav_share,
                 R.id.nav_about
             ), binding.drawerLayout
         )
@@ -86,6 +88,9 @@ class MainActivity : AppCompatActivity() {
             }
             if (it.itemId == R.id.nav_about) {
                 showAboutUsDialog()
+            }
+            if (it.itemId == R.id.nav_share) {
+                showAppShareDialog()
             }
             false
         }
@@ -145,7 +150,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAppShareDialog() {
-        //TODO : Add app share here in future
+        val appPackageName = packageName // Get the app's package name
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "Check out this app: https://play.google.com/store/apps/details?id=$appPackageName"
+            )
+        }
+        startActivity(Intent.createChooser(shareIntent, "Share App"))
     }
 
     override fun onResume() {

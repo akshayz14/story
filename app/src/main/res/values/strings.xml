@@ -58,4 +58,5 @@
     <string name="search">Search</string>
     <string name="definition_error">Can\'t search. Check if it\'s a name or try again later.</string>
     <string name="network_error">Network issue, please try again later.</string>
+    <string name="share">Share App</string>
 </resources>
