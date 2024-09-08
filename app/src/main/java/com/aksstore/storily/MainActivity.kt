@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -15,6 +16,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.aksstore.storily.databinding.ActivityMainBinding
 import com.aksstore.storily.model.Story
+import com.aksstore.storily.utils.isNightMode
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -88,7 +90,24 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-        binding.tvVersion.text = "Version : " + "v" + BuildConfig.VERSION_NAME
+        binding.tvVersion.text = "Version: v${BuildConfig.VERSION_NAME}"
+
+        if (isNightMode(this)) {
+            binding.tvVersion.setTextColor(
+                ContextCompat.getColor(
+                    this,
+                    R.color.white
+                )
+            )
+        } else {
+            binding.tvVersion.setTextColor(
+                ContextCompat.getColor(
+                    this,
+                    R.color.black
+                )
+            )
+        }
+
     }
 
     private fun showAboutUsDialog() {
