@@ -415,6 +415,8 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
 
                 override fun onDone(utteranceId: String) {
                     currentUtteranceId = null
+                    textToSpeech.stop()  // Ensure it's completely stopped
+                    textToSpeech.shutdown()  // Release TTS resources
 
                 }
 
@@ -464,7 +466,7 @@ class ReadStoriesFragment : Fragment(), TextToSpeech.OnInitListener {
     }
 
     private fun speakOut(text: String) {
-        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
+        textToSpeech.speak(text, TextToSpeech.QUEUE_ADD, null, "")
     }
 
 
