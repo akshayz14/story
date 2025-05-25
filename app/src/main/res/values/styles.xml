@@ -8,6 +8,7 @@
         <item name="subtitleTextColor">@color/white</item>
         <item name="android:editTextColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
+        <item name="fontFamily">@font/galano_grotesque_regular</item>
         <item name="titleCentered">true</item>
     </style>
 
