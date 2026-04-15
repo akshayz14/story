@@ -7,14 +7,14 @@ plugins {
 
 android {
     namespace = "com.aksstore.storily"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.aksstore.storily"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 7
-        versionName = "1.3"
+        targetSdk = 35
+        versionCode = 9
+        versionName = "1.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
